@@ -1,12 +1,10 @@
 import React from 'react'
-import axios from 'axios';
 import Navbar from '../components/Navbar'
 import styled from 'styled-components'
 import MicIcon from '@mui/icons-material/Mic';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Message from '../components/Message';
-import SongMessage from '../components/SongMessage'
 import Head from 'next/head';
 
 
@@ -17,50 +15,24 @@ function ChatSection() {
   const [input1, setInput1] = useState('')
   const [input2, setInput2] = useState('')
   const [input3, setInput3] = useState('')
+  const [input4, setInput4] = useState('')
 
   const [mood, setMood] = useState('')
 
   const [count, setCount] = useState(0)
-  const [songs, setSongs] = useState([])
-  
-  
-  
+
   const sendMessage = (e) => {
     e.preventDefault()
-    setCount(count+1)
+    setCount(count++)
   }
 
-  const fetchSongs = async (mood) => {
-    try {
-      const { data: songsData } = await axios.post("http://localhost:8000/api/recommendSong", {mood})
-      setSongs(songsData)
-      // console.log(songs)
-    } catch (error) {
-      console.log(error)
-    }
-    setCount(count + 1)
-  }
-
-  
-
-  const detectMood = async (e, sentence) => {
+  const detectMood = (sentence) => {
     e.preventDefault()
-    
-    try {
-      const { data } = await axios.post("http://localhost:8000/api/detectMood", {sentence})
-      setMood(data.mood)
-    } catch (error) {
-      console.log(error)
-    }
-    setCount(count + 1)
+    const { data } = axios.post("http://localhost:5000/detectMood", {sentence})
+    console.log(data)
+    setMood(data)
+    setCount(count++)
   }
-
-  useEffect(() => {
-    if(mood.length > 0){
-      fetchSongs(mood)
-    }
-  }, [mood])
-
 
   return (
     <div className="bg-[#0A183D] h-full min-h-screen overflow-scroll scrollbar-hide">
@@ -84,9 +56,7 @@ function ChatSection() {
           {count >= 2 && <Message message={`Your detected mood is ${mood}, this song might match your mood`} typeOfUser="bot"/>}
 
           {count >= 2 && <Message message={`Recommending songs`} typeOfUser="bot"/>}
-          {count >= 3 && Object.keys(songs).map((song, idx) => (
-            <SongMessage song={songs[idx]} key={idx} typeOfUser="Bot" />
-          ))}
+
         </MessageContainer>
 
         {count == 0 && (
@@ -103,7 +73,7 @@ function ChatSection() {
             <InsertEmoticonIcon className="ml-4"/>
             <Input value={input2} onChange={e => setInput2(e.target.value)}/>
             <MicIcon className="mr-20"/>
-            <button hidden disabled={!input2} type="submit" onClick={(e) => detectMood(e, input2)}>Send Message</button>
+            <button hidden disabled={!input2} type="submit" onClick={detectMood(input2)}>Send Message</button>
           </InputContainer>
         )}
 

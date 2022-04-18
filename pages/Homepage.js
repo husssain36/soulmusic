@@ -23,10 +23,10 @@ function Homepage() {
                   <h2>Every Soul</h2>
                   <p className="py-5 text-2xl text-white">Welcome to SOULMUSIC. To start the detection process click on Launch</p>
                 </div>
-                  <button onClick = {() => router.push('/ChatSection')} class="bg-[#DE2D63] hover:bg-pink-500 text-white font-bold py-2 px-8 border-b-4 border-pink-800 hover:border-pink-600 rounded">
+                  <button onClick = {() => router.push('/ChatSection')} className="bg-[#DE2D63] hover:bg-pink-500 text-white font-bold py-2 px-8 border-b-4 border-pink-800 hover:border-pink-600 rounded">
                     Launch
                   </button>
-                  <button onClick = {() => router.push('/KnowMore')} class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-8 border-b-4 border-gray-400 rounded shadow mx-4">
+                  <button onClick = {() => router.push('/KnowMore')} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-8 border-b-4 border-gray-400 rounded shadow mx-4">
                     Know More
                   </button>
              </div> 

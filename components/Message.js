@@ -2,15 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 
 function Message({message, typeOfUser}) {
-    console.log(message)
+    //console.log(message)
 
     const TypeOfMessage = typeOfUser === "user" ? Bot : User
 
-  return (
-    <div>
-        <TypeOfMessage>{message}</TypeOfMessage>
-    </div>
-  )
+    return (
+        <div>
+            <TypeOfMessage>{message}</TypeOfMessage>
+        </div>
+    )
 }
 
 export default Message
