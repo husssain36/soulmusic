@@ -34,7 +34,6 @@ function ChatSection() {
     try {
       const { data: songsData } = await axios.post("http://localhost:8000/api/recommendSong", {mood})
       setSongs(songsData)
-      // console.log(songs)
     } catch (error) {
       console.log(error)
     }
